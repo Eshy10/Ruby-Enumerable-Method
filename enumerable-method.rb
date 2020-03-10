@@ -58,4 +58,14 @@ module Enumerable
      end
      result
     end
+
+    def my_none?
+        result = true
+       my_each do |num|
+        if yield num
+        result = false 
+      end
+      end
+      result
+      end
 end
