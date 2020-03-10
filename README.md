@@ -1,5 +1,5 @@
 # Ruby-Enumerable-Method
-This project is about the recreation of the following Ruby Enumerable Method. They are listed below
+This project is about the recreation of the following Ruby Enumerable Method. The methods are listed below
 - Each Method
 - each_with_index Method
 - any, none, all Method
