@@ -86,4 +86,13 @@ module Enumerable
       end
       arr
       end
+
+      def my_inject(&proc)
+        sum = self[0]
+        self.drop(1).my_each do |num|
+          sum = proc.call(sum, num)
+        end
+        sum
+      end
+      end
 end
