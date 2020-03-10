@@ -68,4 +68,14 @@ module Enumerable
       end
       result
       end
+
+      def my_count
+        count = 0
+        my_each do |num|
+            if yield num
+            count += 1
+        end
+        end
+        count
+       end
 end
