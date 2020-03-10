@@ -78,4 +78,12 @@ module Enumerable
         end
         count
        end
+
+       def my_map
+        arr = []
+      my_each do |num|
+        arr << yield(num) if yield(num)
+      end
+      arr
+      end
 end
