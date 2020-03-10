@@ -65,20 +65,23 @@ module Enumerable
     count
   end
 
-  def my_map
+  def my_map(&proc)
     arr = []
     my_each do |num|
-      arr << yield(num) if yield(num)
+      arr << if block_given?
+               yield(num)
+             else
+               proc.call(num)
+             end
     end
     arr
   end
 
-  def my_inject(&proc)
-    sum = self[0]
+  def my_inject(total = self[0])
     drop(1).my_each do |num|
-      sum = proc.call(sum, num)
+      total = yield(total, num)
     end
-    sum
+    total
   end
 end
 
