@@ -38,4 +38,14 @@ module Enumerable
     end
     newArr
      end
+
+     def my_all?
+        result = true
+         my_each do |num|
+         unless yield num
+          result = false
+         end
+       end
+       result
+      end
 end
