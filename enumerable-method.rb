@@ -24,4 +24,18 @@ module Enumerable
     end
     self
       end
+
+      def my_select
+        i = 0
+        newArr = []
+        loop do
+             if i < self.length
+         newArr << self[i] if yield self[i]
+           i += 1
+       else
+           break
+        end 
+    end
+    newArr
+     end
 end
