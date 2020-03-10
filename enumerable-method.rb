@@ -94,5 +94,10 @@ module Enumerable
         end
         sum
       end
-      end
 end
+
+def multiply_els(arr)
+    arr.my_inject { |x, y| x * y}
+  end
+  
+  p multiply_els([2,4,5])
