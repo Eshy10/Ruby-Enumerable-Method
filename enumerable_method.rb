@@ -65,26 +65,6 @@ module Enumerable
     my_each do |ele|
       case arg
       when nil
-        result = true unless ele
-      when Regexp
-        result = true unless ele.to_s.match(arg)
-      when Class
-        result = true unless ele.is_a?(arg)
-      when String
-        result = true unless ele == arg
-      when Numeric
-        result = true unless ele == arg
-      end
-      result = yield(ele) if block_given?
-    end
-    result
-  end
-
-  def my_none?(arg = nil)
-    result = false
-    my_each do |ele|
-      case arg
-      when nil
         result = true if ele
       when Regexp
         result = true if ele.to_s.match(arg)
@@ -100,30 +80,55 @@ module Enumerable
     result
   end
 
+  def my_none?(arg = nil)
+    result = true
+    my_each do |ele|
+      case arg
+      when nil
+        result = false if ele
+      when Regexp
+        result = false if ele.to_s.match(arg)
+      when Class
+        result = false if ele.is_a?(arg)
+      when String
+        result = false if ele == arg
+      when Numeric
+        result = false if ele == arg
+      end
+      result = !yield(ele) if block_given?
+    end
+    result
+  end
+
   def my_count(arg = nil)
     count = 0
     my_each do |num|
-      yield num if block_given?
-      count += 1 if arg == num
+      if block_given?
+        count += 1 if arg == num
+        count += 1 if yield(num) == true
+      else
+        count += 1
+      end
     end
     count
   end
 
-  def my_map
-    return enum_for(:my_map) unless block_given?
-
+  def my_map(proc = nil)
     arr = []
     my_each do |num|
-      arr << yield(num)
+      if proc.nil?
+        return to_enum(:my_map) unless block_given?
+
+        arr << yield(num)
+      else
+        arr << proc.call(num)
+      end
     end
     arr
   end
 
   def my_inject(total = nil, arg = nil)
-    if arg.nil?
-      arg = total
-      count = arg
-    end
+    arg = total if arg.nil?
     case total
     when nil
       arr = drop(1).to_a
@@ -140,7 +145,7 @@ module Enumerable
       total = if block_given?
                 yield(total, num)
               else
-                total.send(count, num)
+                total.send(arg, num)
               end
     end
     total
