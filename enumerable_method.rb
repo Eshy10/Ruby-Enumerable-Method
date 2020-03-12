@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/MethodLength,Metrics/ModuleLength,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength,Metrics/ModuleLength,Style/IfInsideElse,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     return enum_for(:my_each) unless block_given?
@@ -104,10 +104,11 @@ module Enumerable
     count = 0
     my_each do |num|
       if block_given?
-        count += 1 if arg == num
         count += 1 if yield(num) == true
-      else
+      elsif arg == num
         count += 1
+      else
+        count += 1 if arg.nil?
       end
     end
     count
@@ -157,4 +158,4 @@ def multiply_els(arr)
 end
 
 p multiply_els([2, 4, 5])
-# rubocop:enable Metrics/MethodLength,Metrics/ModuleLength,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength,Metrics/ModuleLength,Style/IfInsideElse,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
