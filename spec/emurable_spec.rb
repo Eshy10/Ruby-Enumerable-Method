@@ -19,4 +19,32 @@ describe Enumerable do
         expect(([1,2,3,4,5,6]).my_select { |num| num.odd?}).to eq([1, 3, 5])
         end
     end
+
+    describe "my_all?" do
+        it "should return true if the block does not return false" do
+        expect(([3, 5, 7]).my_all? { |num| num.odd?}).to eq(true)   
+        end
+
+
+    context "when all elements of the matches the pattern given" do
+        it "should return true" do
+          expect((['bat', 'dog', 'cat']).my_all?(String)).to eq(true)
+          expect(([1, 2]).all?(Integer)).to eq(true)
+        end
+      end
+
+      context "when at the array is empty" do
+        it "should return true" do
+          expect(([]).all? ).to eq(true)
+        end
+      end
+  
+      context "when at least 1 of the elements of the array is false when passed into the block" do
+        it "should return false" do
+          expect(([-8, -9, -6, 0]).my_all? { |num| num < 0 }).to eq(false)
+          expect((['bat', 'dog', 'cat']).my_all?(/t/)).to eq(false)
+          expect(([3, 5, 8, 11]).my_all? { |num| num.odd?}).to eql(false)
+        end
+      end
+    end
 end
