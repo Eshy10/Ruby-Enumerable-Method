@@ -75,4 +75,56 @@ describe Enumerable do
         end
       end
     end
+
+    describe "my_none?" do
+        it "should return true if none of the element is true" do
+        expect(([2, 4, 6]).my_none? { |num| num.odd?}).to eq(true)   
+        end
+
+
+    context "when all elements of the matches the pattern given" do
+        it "should return false" do
+          expect((['bat', 'dog', 'cat']).my_none?(String)).to eq(false)
+          expect(([1, 2]).none?(Integer)).to eq(false)
+        end
+      end
+
+      context "when at the array is empty" do
+        it "should return true" do
+          expect(([]).none? ).to eq(true)
+        end
+      end
+  
+      context "when at least 1 of the elements of the array is true when passed into the block" do
+        it "should return false" do
+          expect(([-8, -9, -6, 0]).my_none? { |num| num < 0 }).to eq(false)
+          expect((['bat', 'dog', 'cat']).my_none?(/t/)).to eq(false)
+          expect(([3, 5, 8, 11]).my_none? { |num| num.odd?}).to eql(false)
+        end
+      end
+    end
+
+    describe "my_count" do
+        it "should return the number of element in an array" do
+        expect(([3, 5, 7]).my_count).to eq(3)   
+        end
+
+        it "should return the count of the argument given" do
+          expect(([-8, -9, -6, 0]).my_count { |num| num < 0 }).to eq(3)
+          expect(([3, 5, 3, 7]).my_count(3)).to eq(2)
+          expect(([2, 5, 8, 11]).my_count { |num| num.even?}).to eql(2)
+        end
+    end
+
+    describe "my_map" do
+        it "should return the number of element in an array" do
+        expect(([3, 5, 7]).my_count).to eq(3)   
+        end
+
+        it "should return the count of the argument given" do
+          expect(([-8, -9, -6, 0]).my_count { |num| num < 0 }).to eq(3)
+          expect(([3, 5, 3, 7]).my_count(3)).to eq(2)
+          expect(([2, 5, 8, 11]).my_count { |num| num.even?}).to eql(2)
+        end
+    end
 end
