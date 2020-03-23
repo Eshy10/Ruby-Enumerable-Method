@@ -47,4 +47,32 @@ describe Enumerable do
         end
       end
     end
+
+    describe "my_any?" do
+        it "should return true if any element is true" do
+        expect(([3, 4, 6, 5, 7]).my_any? { |num| num.odd?}).to eq(true)   
+        end
+
+
+    context "when any elements of the matches the pattern given" do
+        it "should return true" do
+          expect((['bat', 'dog', 'cat']).my_any?(String)).to eq(true)
+          expect(([1, 2, 'hello']).any?(Integer)).to eq(true)
+        end
+      end
+
+      context "when at the array is empty" do
+        it "should return false" do
+          expect(([]).any? ).to eq(false)
+        end
+      end
+  
+      context "when all of the elements of the array is false when passed into the block" do
+        it "should return false" do
+          expect(([8, 9, 6, 0]).my_any? { |num| num < 0 }).to eq(false)
+          expect((['baby', 'dog', 'girl']).my_any?(/t/)).to eq(false)
+          expect(([2, 6, 8, 10]).my_any? { |num| num.odd?}).to eql(false)
+        end
+      end
+    end
 end
