@@ -41,7 +41,7 @@ module Enumerable
   end
 
   def my_all?(arg = nil)
-    result = true 
+    result = true
     my_each do |ele|
       case arg
       when nil
@@ -56,7 +56,7 @@ module Enumerable
         result = false unless ele == arg
       end
       result = yield(ele) if block_given?
-      return false if !result
+      return false unless result
     end
     result
   end
@@ -98,7 +98,7 @@ module Enumerable
         result = false if ele == arg
       end
       result = !yield(ele) if block_given?
-      return false if !result
+      return false unless result
     end
     result
   end
