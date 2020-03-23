@@ -12,4 +12,11 @@ describe Enumerable do
             expect((['apple', 'kiwi', 'grapes']).my_each_with_index { |val, index| puts "#{val} => #{index}"}).to eq(['apple', 'kiwi', 'grapes'])
         end
     end
+
+    describe "my_select" do
+        it "should return a new array that satisfy the condition in the block" do
+        expect(([1,2,3,4,5,6]).my_select { |num| num.even?}).to eq([2, 4, 6])
+        expect(([1,2,3,4,5,6]).my_select { |num| num.odd?}).to eq([1, 3, 5])
+        end
+    end
 end
