@@ -109,7 +109,7 @@ describe Enumerable do
         expect(([3, 5, 7]).my_count).to eq(3)   
         end
 
-        it "should return the count of the argument given" do
+        it "should return the count of the arg given" do
           expect(([-8, -9, -6, 0]).my_count { |num| num < 0 }).to eq(3)
           expect(([3, 5, 3, 7]).my_count(3)).to eq(2)
           expect(([2, 5, 8, 11]).my_count { |num| num.even?}).to eql(2)
@@ -117,14 +117,23 @@ describe Enumerable do
     end
 
     describe "my_map" do
-        it "should return the number of element in an array" do
-        expect(([3, 5, 7]).my_count).to eq(3)   
-        end
-
-        it "should return the count of the argument given" do
-          expect(([-8, -9, -6, 0]).my_count { |num| num < 0 }).to eq(3)
-          expect(([3, 5, 3, 7]).my_count(3)).to eq(2)
-          expect(([2, 5, 8, 11]).my_count { |num| num.even?}).to eql(2)
+        it "should return a new array that satisfies the condition in the block" do
+        expect(([2, 4, 6]).my_map {|num| num * 3}).to eq([6, 12, 18])
+        expect((['hi', 'hello', 'holla']).my_map(&:upcase)).to eq(['HI', 'HELLO', 'HOLLA'])
+        expect(([2, 5, 8]).my_map { |num| num.even?}).to eql([true, false, true])     
         end
     end
+
+    describe "my_inject" do
+        it "should use the initial element as the first and return the total" do
+          expect(([2, 4, 6]).my_inject {|sum, n| sum + n}).to eq(12)
+          expect(([2, 4, 6]).my_inject {|product, n| product * n}).to eq(48)       
+        end
+
+        it "should accept a symbol and also accept a symbol with an integer" do
+          expect((5..10).my_inject(:+)).to eq(45)
+          expect((5..10).my_inject(2, :*)).to eq(302400)       
+        end
+    end
+    
 end
