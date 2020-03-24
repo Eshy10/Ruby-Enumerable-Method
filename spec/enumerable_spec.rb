@@ -12,7 +12,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_each_with_index' do
+  describe '#my_each_with_index' do
     it 'should return each element in an array with their index' do
       expect(%w[apple kiwi grapes].my_each_with_index { |val, index| puts "#{val} => #{index}" }).to eq(%w[apple kiwi grapes])
     end
@@ -22,7 +22,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_select' do
+  describe '#my_select' do
     it 'should return a new array that satisfy the condition in the block' do
       expect([1, 2, 3, 4, 5, 6].my_select(&:even?)).to eq([2, 4, 6])
       expect([1, 2, 3, 4, 5, 6].my_select(&:odd?)).to eq([1, 3, 5])
@@ -34,7 +34,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_all?' do
+  describe '#my_all?' do
     it 'should return true if the block does not return false' do
       expect([3, 5, 7].my_all?(&:odd?)).to eq(true)
     end
@@ -61,7 +61,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_any?' do
+  describe '#my_any?' do
     it 'should return true if any element is true' do
       expect([3, 4, 6, 5, 7].my_any?(&:odd?)).to eq(true)
     end
@@ -88,7 +88,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_none?' do
+  describe '#my_none?' do
     it 'should return true if none of the element is true' do
       expect([2, 4, 6].my_none?(&:odd?)).to eq(true)
     end
@@ -115,7 +115,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_count' do
+  describe '#my_count' do
     it 'should return the number of element in an array' do
       expect([3, 5, 7].my_count).to eq(3)
     end
@@ -133,7 +133,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_map' do
+  describe '#my_map' do
     it 'should return a new array that satisfies the condition in the block' do
       expect([2, 4, 6].my_map { |num| num * 3 }).to eq([6, 12, 18])
       expect(%w[hi hello holla].my_map(&:upcase)).to eq(%w[HI HELLO HOLLA])
@@ -147,7 +147,7 @@ describe Enumerable do
     end
   end
 
-  describe 'my_inject' do
+  describe '#my_inject' do
     it 'should use the initial element as the first and return the total' do
       expect([2, 4, 6].my_inject { |sum, n| sum + n }).to eq(12)
       expect([2, 4, 6].my_inject { |product, n| product * n }).to eq(48)
@@ -161,6 +161,16 @@ describe Enumerable do
     it 'should not return the wrong total of all the element' do
       expect([2, 4, 6].my_inject { |sum, n| sum + n }).not_to eq(10)
       expect([2, 4, 6].my_inject { |product, n| product * n }).not_to eq(12)
+    end
+  end
+
+  describe '#multiply_els' do
+    it 'should accept an array as arg and return the products of the element' do
+      expect([2, 4, 5].multiply_els).to eq(40)
+    end
+
+    it 'should not return the wrong products of the element' do
+      expect([2, 4, 5].multiply_els).not_to eq(100)
     end
   end
 end
